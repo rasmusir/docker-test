@@ -1,18 +1,22 @@
-FROM node:10-alpine
+FROM ubuntu:disco-20190913
 
-RUN apk update -q
+RUN apt-get update -q
 
 RUN echo "Installing Git"
-RUN apk add git
+RUN apt-get install git -y -qq
 
-RUN echo "Installing chromium" 
-RUN apk add chromium
+RUN echo "Installing chromium-browser" 
+RUN apt-get install chromium-browser -y -qq
 
 RUN echo "Installing Curl"
-RUN apk add curl
+RUN apt-get install curl -y -qq
+
+RUN echo "Installing nodejs 10.x"
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install nodejs -y -qq
 
 RUN echo "installing Angular-cli"
 RUN npm install -g @angular/cli
 
-RUN adduser -D docker
+RUN adduser docker
 USER docker
